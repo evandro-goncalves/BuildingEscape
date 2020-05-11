@@ -33,14 +33,15 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
-	//UE_LOG(LogTemp, Warning, TEXT("Current YAW value: %f"), GetOwner()->GetActorRotation().Yaw);
+}
 
+void UOpenDoor::OpenDoor(float DeltaTime)
+{
 	FRotator CurrentRotation = GetOwner()->GetActorRotation();
 
 	CurrentYaw = FMath::FInterpTo(CurrentYaw, TargetYaw, DeltaTime, 2.f);
-	
+
 	CurrentRotation.Yaw = CurrentYaw;
 
 	GetOwner()->SetActorRotation(CurrentRotation);
 }
-
