@@ -21,6 +21,7 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	// ...
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
 
@@ -31,16 +32,22 @@ public:
 private:
 	float InitialYaw;
 	float CurrentYaw;
+	float DoorLastOpened;
+
+	UPROPERTY(EditAnywhere)
+	float DoorOpenSpeed = 1.f;
 	
 	UPROPERTY(EditAnywhere)
-	float TargetYaw;
+	float DoorCloseSpeed = 7.f;
+
+	UPROPERTY(EditAnywhere)
+	float DoorCloseDelay = 0.5f;
+	
+	UPROPERTY(EditAnywhere)
+	float OpenAngle = 90.f;
+
+	AActor* ActorThatOpens;
 
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate;
-
-	UPROPERTY(EditAnywhere)
-	AActor* ActorThatOpens;
-
-	float DoorLastOpened = 0.f;
-	float DoorCloseDelay = 0.5f;
 };

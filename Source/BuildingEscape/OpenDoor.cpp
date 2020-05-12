@@ -25,10 +25,12 @@ void UOpenDoor::BeginPlay()
 	// Get door's Yaw positions and set open degree
 	InitialYaw = GetOwner()->GetActorRotation().Yaw;
 	CurrentYaw = GetOwner()->GetActorRotation().Yaw;;
-	TargetYaw += InitialYaw;
+	OpenAngle += InitialYaw;
 
+	// Get player pawn
 	ActorThatOpens = GetWorld()->GetFirstPlayerController()->GetPawn();
 
+	// Check if every door have a pressure plate set
 	if(!PressurePlate)
 	{
 		UE_LOG(LogTemp, Error, TEXT("%s has the open door component on it, but no pressure plate is set!"), *GetOwner()->GetName());
@@ -41,7 +43,7 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+	// Test collision and open or close the door
 	if(PressurePlate && PressurePlate->IsOverlappingActor(ActorThatOpens))
 	{
 		OpenDoor(DeltaTime);
@@ -55,20 +57,18 @@ void UOpenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 			CloseDoor(DeltaTime);
 		}
 	}
-	
-	
 }
 
 void UOpenDoor::OpenDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::FInterpTo(CurrentYaw, TargetYaw, DeltaTime, 1.f);
+	CurrentYaw = FMath::FInterpTo(CurrentYaw, OpenAngle, DeltaTime, DoorOpenSpeed);
 	
 	GetOwner()->SetActorRotation(FRotator(0.f, CurrentYaw, 0.f));
 }
 
 void UOpenDoor::CloseDoor(float DeltaTime)
 {
-	CurrentYaw = FMath::FInterpTo(CurrentYaw, InitialYaw, DeltaTime, 7.5f);
+	CurrentYaw = FMath::FInterpTo(CurrentYaw, InitialYaw, DeltaTime, DoorCloseSpeed);
 		
 	GetOwner()->SetActorRotation(FRotator(0.f, CurrentYaw, 0.f));
 }
