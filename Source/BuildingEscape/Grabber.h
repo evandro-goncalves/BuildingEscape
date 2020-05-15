@@ -34,6 +34,9 @@ private:
 	UInputComponent* Input = nullptr;
 
 	// Methods
+	void SetupPhysicsHandle();
+	void SetupInput();
 	void Grab();
 	void Release();
+	FHitResult GetFirstPhysicsBodyInReach() const;
 };
