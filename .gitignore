@@ -341,6 +341,6 @@ healthchecksdb
 
 # Unreal Engine Files
 Binaries
-Content/StarterContent
+Content/_StarterContent
 Intermediate
 Saved
