@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/ActorComponent.h"
+#include "Components/AudioComponent.h"
 #include "CoreMinimal.h"
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
@@ -23,7 +24,9 @@ protected:
 
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
-	float GetTotalMass();
+	void FindAudioComponent();
+	void FindPressurePlate();
+	float GetTotalMass() const;
 
 public:	
 	// Called every frame
@@ -33,6 +36,9 @@ private:
 	float InitialYaw;
 	float CurrentYaw;
 	float LastOpenedTime;
+	bool bIsDoorOpen = false;
+	
+	UAudioComponent* AudioComponent = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float OpenSpeed = 1.f;
@@ -45,6 +51,9 @@ private:
 	
 	UPROPERTY(EditAnywhere)
 	float OpenAngle = 90.f;
+
+	UPROPERTY(EditAnywhere)
+	float SoundPlayTresholdAngle = 5.f;
 
 	UPROPERTY(EditAnywhere)
 	float OpenRequiredMass = 50.f;
