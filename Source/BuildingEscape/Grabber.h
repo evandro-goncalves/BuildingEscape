@@ -36,6 +36,7 @@ private:
 	void SetupInput();
 	void Grab();
 	void Release();
-	FVector GetLineTraceEnd();
+	FVector GetLineTraceEnd() const;
+	FTransform GetPlayerWorldPosition() const;
 	FHitResult GetFirstPhysicsBodyInReach() const;
 };

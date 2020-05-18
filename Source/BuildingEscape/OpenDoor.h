@@ -23,6 +23,7 @@ protected:
 
 	void OpenDoor(float DeltaTime);
 	void CloseDoor(float DeltaTime);
+	float GetTotalMass();
 
 public:	
 	// Called every frame
@@ -32,8 +33,6 @@ private:
 	float InitialYaw;
 	float CurrentYaw;
 	float LastOpenedTime;
-
-	AActor* ActorThatOpens;
 
 	UPROPERTY(EditAnywhere)
 	float OpenSpeed = 1.f;
@@ -48,5 +47,8 @@ private:
 	float OpenAngle = 90.f;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume* PressurePlate;
+	float OpenRequiredMass = 50.f;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerVolume* PressurePlate = nullptr;
 };
