@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "CoreMinimal.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
 
@@ -26,17 +26,16 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
-	// Attributes
+	UInputComponent* Input = nullptr;
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+
 	UPROPERTY(EditAnywhere)
 	float Reach = 100.f;
 
-	UPhysicsHandleComponent* PhysicsHandle = nullptr;
-	UInputComponent* Input = nullptr;
-
-	// Methods
 	void SetupPhysicsHandle();
 	void SetupInput();
 	void Grab();
 	void Release();
+	FVector GetLineTraceEnd();
 	FHitResult GetFirstPhysicsBodyInReach() const;
 };
